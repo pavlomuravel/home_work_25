@@ -46,21 +46,22 @@ console.log(createDomElement('span', 'This span has been added to the paragraph.
  */
 
 function setLocalStorageInfo(key, value, timeout) {
-  let sekondTime = null;
+  const expiry = timeout ? Date.now() + timeout * 1000 : null;
+  
   const data = {
     value: value,
-    sekond: sekondTime
+    expiry: expiry
   };
 
   localStorage.setItem(key, JSON.stringify(data));
-  console.log(`Its okey, save'${key}'`);
+  console.log(`Its okey, saved '${key}'`);
 
   if (timeout) {
     setTimeout(() => {
       localStorage.removeItem(key);
-      console.log(`Data with key '${key}' deleted after '${timeout}' sekond`);
-    } );
-  };
+      console.log(`Data with key '${key}' deleted after '${timeout}' seconds`);
+    }, timeout * 1000);
+  }
 }
 
 const userNames = ['Oleksii', 'Oleksandr', 'Anna', 'Dmytro'];
@@ -68,13 +69,14 @@ const userNames = ['Oleksii', 'Oleksandr', 'Anna', 'Dmytro'];
 const person = {
   name: 'John Wick',
   email: 'john@example.com',
-  password: 'password@example.com', // Страний пароль в джона)))
-}
+  password: 'password@example.com', // Странний пароль у Джона)))
+};
 
 // Демонстрація використання функції
 setLocalStorageInfo('language', 'en');
 setLocalStorageInfo('userNames', userNames, 30);
 setLocalStorageInfo('user', person);
+
 
 /*
 * #3
